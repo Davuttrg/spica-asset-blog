@@ -1,0 +1,198 @@
+# API KEY
+apiVersion: passport/v1
+kind: ApiKey
+metadata:
+  name: blog-apikey
+spec:
+  name: Secret Api Key For Blog
+  policies:
+    - BucketFullAccess
+---
+# Home Page Settings BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: home-page-settings
+spec:
+  title: "Home Page Settings"
+  description: "Configure the order of the sections etc."
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    title:
+      type: string
+      description: "Title of your initialize home page settings"
+      options:
+        position: left
+        visible: true
+    header:
+      type: storage
+      description: "Header image"
+      options:
+        position: right
+        visible: true
+     contact_mail:
+      type: string
+      description: "Contact mail"
+      options:
+        position: left
+        visible: true
+  primary:
+    - title
+---
+# Author BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: author
+spec:
+  title: "Author"
+  description: "Author of post"
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    full_name:
+      type: string
+      description: "Name of your Author"
+      options:
+        position: left
+        visible: true
+    profile_img:
+      type: storage
+      description: "Profile image of Author"
+      options:
+        position: right
+        visible: true 
+    biographi:
+      type: richtext
+      description: "Biographi of Author"
+      options:
+        position: bottom
+        visible: true  
+  primary:
+    - full_name
+---
+# Tag BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: tag
+spec:
+  title: "Tag"
+  description: "Tag of post"
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    title:
+      type: string
+      description: "Title of your tag"
+      options:
+        position: left
+        visible: true
+    description:
+      type: textarea
+      description: "Description of tag"
+      options:
+        position: right
+        visible: true
+  primary:
+    - title
+---
+# Category BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: category
+spec:
+  title: "Category"
+  description: "Category of post"
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    title:
+      type: string
+      description: "Title of your category"
+      options:
+        position: left
+        visible: true
+    description:
+      type: textarea
+      description: "Description of category"
+      options:
+        position: right
+        visible: true
+  primary:
+    - title
+---
+# Post BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: post
+spec:
+  title: "Post"
+  description: "Blog post"
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    title:
+      type: string
+      description: "Title of your post"
+      options:
+        position: left
+        visible: true
+    header_img:
+      type: storage
+      description: "Image of post"
+      options:
+        position: right
+        visible: true
+    created_at:
+      type: date
+      description: "Create date of post"
+      options:
+        position: left
+        visible: true
+    category:
+      type: relation
+      description: "Category of post"
+      options:
+        position: left
+        visible: true
+      relationType: onetoone
+      bucket:
+        resourceFieldRef:
+          schemaName: category
+    tags:
+      type: relation
+      description: "Tags of post"
+      options:
+        position: left
+        visible: true
+      relationType: onetomany
+      bucket:
+        resourceFieldRef:
+          schemaName: tag
+    author:
+      type: relation
+      description: "Author of post"
+      options:
+        position: left
+        visible: true
+      relationType: onetoone
+      bucket:
+        resourceFieldRef:
+          schemaName: author
+    description:
+      type: richtext
+      description: "Content of post"
+      options:
+        position: right
+        visible: true
+  primary:
+    - title
