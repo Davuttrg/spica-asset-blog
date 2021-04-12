@@ -49,7 +49,7 @@ spec:
         position: right
         visible: true 
     biographi:
-      type: richtext
+      type: textarea
       description: "Biographi of Author"
       options:
         position: bottom
