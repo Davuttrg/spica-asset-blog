@@ -2,44 +2,11 @@
 apiVersion: passport/v1
 kind: ApiKey
 metadata:
-  name: blog-apikey
+  name: blog-client-apikey
 spec:
-  name: Secret Api Key For Blog
+  name: Public Api Key For Blog
   policies:
     - BucketFullAccess
----
-# Home Page Settings BUCKET
-apiVersion: bucket/v1
-kind: Schema
-metadata:
-  name: home-page-settings
-spec:
-  title: "Home Page Settings"
-  description: "Configure the order of the sections etc."
-  acl:
-    write: "true==true"
-    read: "true==true"
-  properties:
-    title:
-      type: string
-      description: "Title of your initialize home page settings"
-      options:
-        position: left
-        visible: true
-    header:
-      type: storage
-      description: "Header image"
-      options:
-        position: right
-        visible: true
-     contact_mail:
-      type: string
-      description: "Contact mail"
-      options:
-        position: left
-        visible: true
-  primary:
-    - title
 ---
 # Author BUCKET
 apiVersion: bucket/v1
@@ -53,6 +20,12 @@ spec:
     write: "true==true"
     read: "true==true"
   properties:
+   email:
+      type: string
+      description: "Email of your Author"
+      options:
+        position: left
+        visible: true
     full_name:
       type: string
       description: "Name of your Author"
@@ -72,7 +45,7 @@ spec:
         position: bottom
         visible: true  
   primary:
-    - full_name
+    - email
 ---
 # Tag BUCKET
 apiVersion: bucket/v1
@@ -128,6 +101,90 @@ spec:
   primary:
     - title
 ---
+# Home Page Settings BUCKET
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: home-page-settings
+spec:
+  title: "Home Page Settings"
+  description: "Configure the order of the sections etc."
+  acl:
+    write: "true==true"
+    read: "true==true"
+  properties:
+    title:
+      type: string
+      description: "Title of your initialize home page settings"
+      options:
+        position: left
+        visible: true
+    header:
+      type: storage
+      description: "Header image"
+      options:
+        position: right
+        visible: true
+    contact_mail:
+      type: string
+      description: "Contact mail"
+      options:
+        position: left
+        visible: true
+    sections:
+      type: object
+      description: Sections of home page
+      options:
+        position: bottom
+      properties:
+        section1:
+          type: object
+          description: Section 1
+          options:
+            position: bottom
+          properties:
+            postlist:
+              type: relation
+              description: Which post category will show in this section?
+              options:
+                position: bottom
+              relationType: onetoone
+              bucket:
+                resourceFieldRef:
+                  schemaName: category
+        section2:
+          type: object
+          description: Section 2
+          options:
+            position: bottom
+          properties:
+            postlist:
+              type: relation
+              description: Which post category will show in this section?
+              options:
+                position: bottom
+              relationType: onetoone
+              bucket:
+                resourceFieldRef:
+                  schemaName: category
+        section3:
+          type: object
+          description: Section 3
+          options:
+            position: bottom
+          properties:
+            postlist:
+              type: relation
+              description: Which post category will show in this section?
+              options:
+                position: bottom
+              relationType: onetoone
+              bucket:
+                resourceFieldRef:
+                  schemaName: category
+  primary:
+    - title
+---
 # Post BUCKET
 apiVersion: bucket/v1
 kind: Schema
@@ -137,7 +194,7 @@ spec:
   title: "Post"
   description: "Blog post"
   acl:
-    write: "true==true"
+    write: "(auth.identifier==document.author.email)"
     read: "true==true"
   properties:
     title:
@@ -196,3 +253,65 @@ spec:
         visible: true
   primary:
     - title
+---  
+# API KEY
+apiVersion: passport/v1
+kind: ApiKey
+metadata:
+  name: blog-secret-apikey
+spec:
+  name: Secret Api Key For Blog
+  policies:
+    - IdentityFullAccess
+---
+# FUNCTION
+apiVersion: function/v1
+kind: Function
+metadata:
+  name: blog
+spec:
+  title: Identity operation
+  description: Create and delete author identity automatically
+  timeout: 10
+  code: ./function/triggers.js
+  runtime:
+    name: Node
+    language: Javascript
+  environment:
+    - name: API_KEY
+      valueFrom:
+        resourceFieldRef:
+          apiKeyName: blog-secret-apikey
+  dependency:
+    - name: "@spica-devkit/identity"
+      version: latest
+---
+# TRIGGER - CREATE IDENTITY
+apiVersion: function/v1
+kind: Trigger
+metadata:
+  name: trigger-create-identity
+spec:
+  name: default
+  func: blog
+  type: bucket
+  bucketOptions:
+    bucket:
+      resourceFieldRef:
+        schemaName: author
+    type: INSERT
+---
+# TRIGGER - DELETE IDENTITY
+apiVersion: function/v1
+kind: Trigger
+metadata:
+  name: trigger-delete-identity
+spec:
+  name: default
+  func: blog
+  type: bucket
+  bucketOptions:
+    bucket:
+      resourceFieldRef:
+        schemaName: author
+    type: DELETE
