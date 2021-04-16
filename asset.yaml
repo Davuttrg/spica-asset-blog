@@ -141,57 +141,33 @@ spec:
       options:
         position: left
         visible: true
-    sections:
-      type: object
-      description: Sections of home page
-      options:
-        position: bottom
-      properties:
-        section1:
-          type: object
-          description: Section 1
-          options:
-            position: bottom
-          properties:
-            postlist:
-              type: relation
-              description: Which post category will show in this section?
-              options:
-                position: bottom
-              relationType: onetoone
-              bucket:
-                resourceFieldRef:
-                  schemaName: category
-        section2:
-          type: object
-          description: Section 2
-          options:
-            position: bottom
-          properties:
-            postlist:
-              type: relation
-              description: Which post category will show in this section?
-              options:
-                position: bottom
-              relationType: onetoone
-              bucket:
-                resourceFieldRef:
-                  schemaName: category
-        section3:
-          type: object
-          description: Section 3
-          options:
-            position: bottom
-          properties:
-            postlist:
-              type: relation
-              description: Which post category will show in this section?
-              options:
-                position: bottom
-              relationType: onetoone
-              bucket:
-                resourceFieldRef:
-                  schemaName: category
+    section1:
+       type: relation
+       description: By which category are posts visible in this section?
+       options:
+         position: bottom
+       relationType: onetoone
+       bucket:
+         resourceFieldRef:
+           schemaName: category
+    section2:
+       type: relation
+       description: By which category are posts visible in this section?
+       options:
+         position: bottom
+       relationType: onetoone
+       bucket:
+         resourceFieldRef:
+           schemaName: category
+    section3:
+         type: relation
+         description: By which category are posts visible in this section?
+         options:
+           position: bottom
+         relationType: onetoone
+         bucket:
+           resourceFieldRef:
+             schemaName: category
   primary:
     - title
 ---
