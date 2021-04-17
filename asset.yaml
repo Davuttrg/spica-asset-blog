@@ -24,8 +24,8 @@ kind: Schema
 metadata:
   name: author
 spec:
-  title: "Author"
-  description: "Author of post"
+  title: Author
+  description: Author of post
   acl:
     write: "true==true"
     read: "true==true"
@@ -63,8 +63,8 @@ kind: Schema
 metadata:
   name: tag
 spec:
-  title: "Tag"
-  description: "Tag of post"
+  title: Tag
+  description: Tag of post
   acl:
     write: "true==true"
     read: "true==true"
@@ -90,8 +90,8 @@ kind: Schema
 metadata:
   name: category
 spec:
-  title: "Category"
-  description: "Category of post"
+  title: Category
+  description: Category of post
   acl:
     write: "true==true"
     read: "true==true"
@@ -117,8 +117,8 @@ kind: Schema
 metadata:
   name: home-page-settings
 spec:
-  title: "Home Page Settings"
-  description: "Configure the order of the sections etc."
+  title: Home Page Settings
+  description: Configure the order of the sections etc.
   acl:
     write: "true==true"
     read: "true==true"
@@ -143,7 +143,7 @@ spec:
         visible: true
     section1:
       type: relation
-      description: By which category are posts visible in this section?
+      description: "By which category are posts visible in this section?"
       options:
         position: bottom
       relationType: onetoone
@@ -152,7 +152,7 @@ spec:
           schemaName: category
     section2:
       type: relation
-      description: By which category are posts visible in this section?
+      description: "By which category are posts visible in this section?"
       options:
         position: bottom
       relationType: onetoone
@@ -161,7 +161,7 @@ spec:
           schemaName: category
     section3:
       type: relation
-      description: By which category are posts visible in this section?
+      description: "By which category are posts visible in this section?"
       options:
         position: bottom
       relationType: onetoone
@@ -170,38 +170,38 @@ spec:
           schemaName: category
     socialmedia:
       type: object
-      description: Social media
+      description: "Social media"
       options:
         position: bottom
       properties:
         facebook:
           type: string
           title: facebook
-          description: Facebook adress
+          description: "Facebook address"
           options:
             position: bottom
         twitter:
           type: string
           title: twitter
-          description: Twitter adress
+          description: "Twitter address"
           options:
             position: bottom
         instagram:
           type: string
           title: instagram
-          description: Instagram adress
+          description: "Instagram address"
           options:
             position: bottom
         youtube:
           type: string
           title: youtube
-          description: Youtube  adress
+          description: "Youtube address"
           options:
             position: bottom
         pinterest:
           type: string
           title: pinterest
-          description: Pinterest adress
+          description: "Pinterest adress"
           options:
             position: bottom
   primary:
@@ -213,8 +213,8 @@ kind: Schema
 metadata:
   name: post
 spec:
-  title: "Post"
-  description: "Blog post"
+  title: Post
+  description: Blog post
   acl:
     write: "(auth.identifier==document.author.email)"
     read: "true==true"
