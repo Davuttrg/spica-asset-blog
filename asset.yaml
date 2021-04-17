@@ -47,13 +47,13 @@ spec:
       description: "Profile image of Author"
       options:
         position: right
-        visible: true 
+        visible: true
     biographi:
       type: textarea
       description: "Biographi of Author"
       options:
         position: bottom
-        visible: true  
+        visible: true
   primary:
     - email
 ---
@@ -142,32 +142,68 @@ spec:
         position: left
         visible: true
     section1:
-       type: relation
-       description: By which category are posts visible in this section?
-       options:
-         position: bottom
-       relationType: onetoone
-       bucket:
-         resourceFieldRef:
-           schemaName: category
+      type: relation
+      description: By which category are posts visible in this section?
+      options:
+        position: bottom
+      relationType: onetoone
+      bucket:
+        resourceFieldRef:
+          schemaName: category
     section2:
-       type: relation
-       description: By which category are posts visible in this section?
-       options:
-         position: bottom
-       relationType: onetoone
-       bucket:
-         resourceFieldRef:
-           schemaName: category
+      type: relation
+      description: By which category are posts visible in this section?
+      options:
+        position: bottom
+      relationType: onetoone
+      bucket:
+        resourceFieldRef:
+          schemaName: category
     section3:
-         type: relation
-         description: By which category are posts visible in this section?
-         options:
-           position: bottom
-         relationType: onetoone
-         bucket:
-           resourceFieldRef:
-             schemaName: category
+      type: relation
+      description: By which category are posts visible in this section?
+      options:
+        position: bottom
+      relationType: onetoone
+      bucket:
+        resourceFieldRef:
+          schemaName: category
+    socialmedia:
+      type: object
+      description: Social media
+      options:
+        position: bottom
+      properties:
+        facebook:
+          type: string
+          title: facebook
+          description: Facebook adress
+          options:
+            position: bottom
+        twitter:
+          type: string
+          title: twitter
+          description: Twitter adress
+          options:
+            position: bottom
+        instagram:
+          type: string
+          title: instagram
+          description: Instagram adress
+          options:
+            position: bottom
+        youtube:
+          type: string
+          title: youtube
+          description: Youtube  adress
+          options:
+            position: bottom
+        pinterest:
+          type: string
+          title: pinterest
+          description: Pinterest adress
+          options:
+            position: bottom
   primary:
     - title
 ---
@@ -239,7 +275,7 @@ spec:
         visible: true
   primary:
     - title
----  
+---
 # FUNCTION
 apiVersion: function/v1
 kind: Function
