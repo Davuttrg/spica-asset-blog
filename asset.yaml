@@ -237,6 +237,7 @@ spec:
       options:
         position: left
         visible: true
+      default: ":created_at"
     category:
       type: relation
       description: "Category of post"
