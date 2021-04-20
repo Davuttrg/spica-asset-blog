@@ -1,7 +1,7 @@
 import * as Identity from "@spica-devkit/identity";
 
 export async function createIdentity(change) {
-    Identity.initialize({ apikey: `${process.env.IDENTITY_SECRET_KEY}` });
+    Identity.initialize({ apikey: `${process.env.API_KEY}` });
     const author = change.current;
     const password = "spica";
 
@@ -19,7 +19,7 @@ export async function createIdentity(change) {
 }
 
 export async function deleteIdentity(change) {
-    Identity.initialize({ apikey: `${process.env.IDENTITY_SECRET_KEY}` });
+    Identity.initialize({ apikey: `${process.env.API_KEY}` });
 
     const author = change.previous;
 
