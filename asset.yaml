@@ -306,7 +306,7 @@ metadata:
   name: trigger-create-identity
 spec:
   name: createIdentity
-  func: blog
+  func: trigger-create-identity
   type: bucket
   bucketOptions:
     bucket:
@@ -321,7 +321,7 @@ metadata:
   name: trigger-delete-identity
 spec:
   name: deleteIdentity
-  func: blog
+  func: trigger-delete-identity
   type: bucket
   bucketOptions:
     bucket:
