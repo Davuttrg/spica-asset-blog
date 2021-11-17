@@ -1,316 +1,315 @@
-# API KEY1
-apiVersion: passport/v1
-kind: ApiKey
-metadata:
-  name: blog-secret-apikey
-spec:
-  name: Secret Api Key For Blog
-  policies:
-    - IdentityFullAccess
----
-# API KEY2
-apiVersion: passport/v1
-kind: ApiKey
-metadata:
-  name: blog-client-apikey
-spec:
-  name: Public Api Key For Blog
-  policies:
-    - BucketFullAccess
----
-# Author BUCKET
+# BUCKET - Author
 apiVersion: bucket/v1
 kind: Schema
 metadata:
-  name: author
+  name: spica-asset-blog-author-bucket
 spec:
   title: Author
   description: Author of post
   acl:
-    write: "true==true"
-    read: "true==true"
+    write: true==true
+    read: true==true
+  primary: email
   properties:
     email:
       title: email
       type: string
-      description: "Email of your Author"
+      description: Email of your Author
       options:
         position: left
     full_name:
       type: string
       title: full_name
-      description: "Name of your Author"
+      description: Name of your Author
       options:
         position: left
     profile_img:
       type: storage
       title: profile_img
-      description: "Profile image of Author"
+      description: Profile image of Author
       options:
         position: right
     biographi:
       type: textarea
       title: biographi
-      description: "Biographi of Author"
+      description: Biographi of Author
       options:
         position: bottom
-  primary:
-    - email
+  icon: outbond
 ---
-# Tag BUCKET
+# BUCKET - Tag
 apiVersion: bucket/v1
 kind: Schema
 metadata:
-  name: tag
+  name: spica-asset-blog-tag-bucket
 spec:
   title: Tag
   description: Tag of post
   acl:
-    write: "true==true"
-    read: "true==true"
+    write: true==true
+    read: true==true
   properties:
     title:
       type: string
-      description: "Title of your tag"
+      description: Title of your tag
       options:
         position: left
+      title: title
     description:
       type: textarea
-      description: "Description of tag"
+      description: Description of tag
       options:
         position: right
-  primary:
-    - title
+      title: description
+  primary: title
+  icon: outbond
 ---
-# Category BUCKET
+# BUCKET - Category
 apiVersion: bucket/v1
 kind: Schema
 metadata:
-  name: category
+  name: spica-asset-blog-category-bucket
 spec:
   title: Category
   description: Category of post
   acl:
-    write: "true==true"
-    read: "true==true"
+    write: true==true
+    read: true==true
   properties:
     title:
       type: string
-      description: "Title of your category"
+      description: Title of your category
       options:
         position: left
+      title: title
     description:
       type: textarea
-      description: "Description of category"
+      description: Description of category
       options:
         position: right
-  primary:
-    - title
+      title: description
+  primary: title
+  icon: outbond
 ---
-# Home Page Settings BUCKET
+# BUCKET - Home Page Settings
 apiVersion: bucket/v1
 kind: Schema
 metadata:
-  name: home-page-settings
+  name: spica-asset-blog-home-page-settings-bucket
 spec:
   title: Home Page Settings
   description: Configure the order of the sections etc.
   acl:
-    write: "true==true"
-    read: "true==true"
+    write: true==true
+    read: true==true
   properties:
     title:
       type: string
-      description: "Title of your initialize home page settings"
+      description: Title of your initialize home page settings
       options:
         position: left
+      title: title
     header:
       type: storage
-      description: "Header image"
+      description: Header image
       options:
         position: right
+      title: header
     contact_mail:
       type: string
-      description: "Contact mail"
+      description: Contact mail
       options:
         position: left
+      title: contact_mail
     section1:
       type: relation
-      description: "By which category are posts visible in this section?"
+      description: By which category are posts visible in this section?
       options:
         position: bottom
       relationType: onetoone
+      title: section1
       bucket:
         resourceFieldRef:
-          schemaName: category
+          schemaName: spica-asset-blog-category-bucket
     section2:
       type: relation
-      description: "By which category are posts visible in this section?"
+      description: By which category are posts visible in this section?
       options:
         position: bottom
       relationType: onetoone
+      title: section2
       bucket:
         resourceFieldRef:
-          schemaName: category
+          schemaName: spica-asset-blog-category-bucket
     section3:
       type: relation
-      description: "By which category are posts visible in this section?"
+      description: By which category are posts visible in this section?
       options:
         position: bottom
       relationType: onetoone
+      title: section3
       bucket:
         resourceFieldRef:
-          schemaName: category
+          schemaName: spica-asset-blog-category-bucket
     socialmedia:
       type: object
-      description: "Social media"
+      description: Social media
       options:
         position: bottom
       properties:
         facebook:
           type: string
           title: facebook
-          description: "Facebook address"
+          description: Facebook address
           options:
             position: bottom
         twitter:
           type: string
           title: twitter
-          description: "Twitter address"
+          description: Twitter address
           options:
             position: bottom
         instagram:
           type: string
           title: instagram
-          description: "Instagram address"
+          description: Instagram address
           options:
             position: bottom
         youtube:
           type: string
           title: youtube
-          description: "Youtube address"
+          description: Youtube address
           options:
             position: bottom
         pinterest:
           type: string
           title: pinterest
-          description: "Pinterest adress"
+          description: Pinterest adress
           options:
             position: bottom
-  primary:
-    - title
+      title: socialmedia
+  primary: title
+  icon: outbond
 ---
-# Post BUCKET
+# BUCKET - Post
 apiVersion: bucket/v1
 kind: Schema
 metadata:
-  name: post
+  name: spica-asset-blog-post-bucket
 spec:
   title: Post
   description: Blog post
   acl:
-    write: "(auth.identifier==document.author.email)"
-    read: "true==true"
+    write: (auth.identifier==document.author.email)
+    read: true==true
   properties:
     title:
       type: string
-      description: "Title of your post"
+      description: Title of your post
       options:
         position: left
+      title: title
     header_img:
       type: storage
-      description: "Image of post"
+      description: Image of post
       options:
         position: right
+      title: header_img
     created_at:
       type: date
-      description: "Create date of post"
+      description: Create date of post
       options:
         position: left
-      default: ":created_at"
+      default: :created_at
+      title: created_at
     category:
       type: relation
-      description: "Category of post"
+      description: Category of post
       options:
         position: left
       relationType: onetoone
+      title: category
       bucket:
         resourceFieldRef:
-          schemaName: category
+          schemaName: spica-asset-blog-category-bucket
     tags:
       type: relation
-      description: "Tags of post"
+      description: Tags of post
       options:
         position: left
       relationType: onetomany
+      title: tags
       bucket:
         resourceFieldRef:
-          schemaName: tag
+          schemaName: spica-asset-blog-tag-bucket
     author:
       type: relation
-      description: "Author of post"
+      description: Author of post
       options:
         position: left
       relationType: onetoone
+      title: author
       bucket:
         resourceFieldRef:
-          schemaName: author
+          schemaName: spica-asset-blog-author-bucket
     description:
       type: richtext
-      description: "Content of post"
+      description: Content of post
       options:
         position: right
-  primary:
-    - title
+      title: description
+  primary: title
+  icon: outbond
 ---
-# FUNCTION
+# FUNCTION - Identity operation
 apiVersion: function/v1
 kind: Function
 metadata:
-  name: blog
+  name: spica-asset-blog-identity-operation-function
 spec:
-  title: Identity operation
   description: Create and delete author identity automatically
+  language: javascript
   timeout: 10
-  code: ./function/triggers.js
+  environment:
+    - name: API_KEY
+      value: 1aekxpn1akw3afph0
+  dependency:
+    - name: "@spica-devkit/identity"
+      version: ^0.9.12
+  title: Identity operation
+  code: ./function/spica-asset-blog-identity-operation-function.js
   runtime:
     name: Node
     language: Javascript
-  environment:
-    - name: API_KEY
-      valueFrom:
-        resourceFieldRef:
-          apiKeyName: blog-secret-apikey
-  dependency:
-    - name: "@spica-devkit/identity"
-      version: latest
 ---
-# TRIGGER - CREATE IDENTITY
+# TRIGGER - createIdentity
 apiVersion: function/v1
 kind: Trigger
 metadata:
-  name: trigger-create-identity
-spec:
   name: createIdentity
-  func: blog
+spec:
+  active: true
   type: bucket
+  name: createIdentity
+  func: spica-asset-blog-identity-operation-function
   bucketOptions:
     bucket:
       resourceFieldRef:
-        schemaName: author
+        schemaName: spica-asset-blog-author-bucket
     type: INSERT
 ---
-# TRIGGER - DELETE IDENTITY
+# TRIGGER - deleteIdentity
 apiVersion: function/v1
 kind: Trigger
 metadata:
-  name: trigger-delete-identity
-spec:
   name: deleteIdentity
-  func: blog
+spec:
+  active: true
   type: bucket
+  name: deleteIdentity
+  func: spica-asset-blog-identity-operation-function
   bucketOptions:
     bucket:
       resourceFieldRef:
-        schemaName: author
+        schemaName: spica-asset-blog-author-bucket
     type: DELETE
