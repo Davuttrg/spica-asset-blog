@@ -31,29 +31,29 @@ spec:
     read: "true==true"
   properties:
     email:
+      title: email
       type: string
       description: "Email of your Author"
       options:
         position: left
-        visible: true
     full_name:
       type: string
+      title: full_name
       description: "Name of your Author"
       options:
         position: left
-        visible: true
     profile_img:
       type: storage
+      title: profile_img
       description: "Profile image of Author"
       options:
         position: right
-        visible: true
     biographi:
       type: textarea
+      title: biographi
       description: "Biographi of Author"
       options:
         position: bottom
-        visible: true
   primary:
     - email
 ---
@@ -74,13 +74,11 @@ spec:
       description: "Title of your tag"
       options:
         position: left
-        visible: true
     description:
       type: textarea
       description: "Description of tag"
       options:
         position: right
-        visible: true
   primary:
     - title
 ---
@@ -101,13 +99,11 @@ spec:
       description: "Title of your category"
       options:
         position: left
-        visible: true
     description:
       type: textarea
       description: "Description of category"
       options:
         position: right
-        visible: true
   primary:
     - title
 ---
@@ -128,19 +124,16 @@ spec:
       description: "Title of your initialize home page settings"
       options:
         position: left
-        visible: true
     header:
       type: storage
       description: "Header image"
       options:
         position: right
-        visible: true
     contact_mail:
       type: string
       description: "Contact mail"
       options:
         position: left
-        visible: true
     section1:
       type: relation
       description: "By which category are posts visible in this section?"
@@ -224,26 +217,22 @@ spec:
       description: "Title of your post"
       options:
         position: left
-        visible: true
     header_img:
       type: storage
       description: "Image of post"
       options:
         position: right
-        visible: true
     created_at:
       type: date
       description: "Create date of post"
       options:
         position: left
-        visible: true
       default: ":created_at"
     category:
       type: relation
       description: "Category of post"
       options:
         position: left
-        visible: true
       relationType: onetoone
       bucket:
         resourceFieldRef:
@@ -253,7 +242,6 @@ spec:
       description: "Tags of post"
       options:
         position: left
-        visible: true
       relationType: onetomany
       bucket:
         resourceFieldRef:
@@ -263,7 +251,6 @@ spec:
       description: "Author of post"
       options:
         position: left
-        visible: true
       relationType: onetoone
       bucket:
         resourceFieldRef:
@@ -273,7 +260,6 @@ spec:
       description: "Content of post"
       options:
         position: right
-        visible: true
   primary:
     - title
 ---
