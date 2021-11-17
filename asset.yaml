@@ -261,6 +261,26 @@ spec:
   primary: title
   icon: outbond
 ---
+# API KEY IDENTITY
+apiVersion: passport/v1
+kind: ApiKey
+metadata:
+  name: blog-secret-identity-apikey
+spec:
+  name: Secret Identity Api Key For Blog
+  policies:
+    - IdentityFullAccess
+---
+# API KEY CLIENT
+apiVersion: passport/v1
+kind: ApiKey
+metadata:
+  name: blog-client-apikey
+spec:
+  name: Public Api Key For Blog
+  policies:
+    - BucketFullAccess
+---
 # FUNCTION - Identity operation
 apiVersion: function/v1
 kind: Function
@@ -272,7 +292,9 @@ spec:
   timeout: 10
   environment:
     - name: API_KEY
-      value: 1aekxpn1akw3afph0
+      valueFrom:
+        resourceFieldRef:
+          apiKeyName: blog-secret-identity-apikey
   dependency:
     - name: "@spica-devkit/identity"
       version: ^0.9.12
